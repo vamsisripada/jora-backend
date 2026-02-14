@@ -4,9 +4,6 @@ import express from "express";
 
 import { connectDb } from "./config/db.js";
 import authRoutes from "./routes/auth.js";
-import cartRoutes from "./routes/cart.js";
-import wishlistRoutes from "./routes/wishlist.js";
-import orderRoutes from "./routes/order.js";
 
 dotenv.config();
 
@@ -31,9 +28,6 @@ app.get("/", (_req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
-app.use("/api/wishlist", wishlistRoutes);
-app.use("/api/cart", cartRoutes);
-app.use("/api/orders", orderRoutes);
 
 app.use((err, _req, res, _next) => {
   const status = err.status || 500;
@@ -51,6 +45,6 @@ connectDb()
     });
   })
   .catch((error) => {
-    console.error("Failed to connect to MongoDB", error);
+    console.error("Failed to connect to MySQL", error);
     process.exit(1);
   });

@@ -13,7 +13,7 @@ export const requireAuth = async (req, res, next) => {
 
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findById(payload.id).select("_id tokenSalt email");
+    const user = await User.findById(payload.id);
 
     if (!user) {
       return res.status(401).json({ message: "Invalid or expired token" });
@@ -24,7 +24,7 @@ export const requireAuth = async (req, res, next) => {
     }
 
     req.user = {
-      id: user._id,
+      id: user.id,
       email: user.email,
     };
 
